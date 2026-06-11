@@ -1,10 +1,20 @@
 ﻿import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import api from '../services/api';
 
 export default function HomeScreen() {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
   const [materiais, setMateriais] = useState([]);
+
+  const buscarMateriais = async () => {
+    try {
+      const resposta = await api.get('/');
+      setMateriais(resposta.data);
+    } catch (erro) {
+      Alert.alert('Erro', 'Nao foi possivel carregar o estoque.');
+    }
+  };
 
   const handleCadastrar = () => {
     if (!nome.trim() || !quantidade.trim()) {
