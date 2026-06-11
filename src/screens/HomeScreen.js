@@ -1,12 +1,17 @@
 ﻿import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 
 export default function HomeScreen() {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
   const [materiais, setMateriais] = useState([]);
 
-  const handleCadastrar = () => {};
+  const handleCadastrar = () => {
+    if (!nome.trim() || !quantidade.trim()) {
+      Alert.alert('Atencao', 'Preencha todos os campos antes de cadastrar.');
+      return;
+    }
+  };
 
   return (
     <View style={styles.container}>
