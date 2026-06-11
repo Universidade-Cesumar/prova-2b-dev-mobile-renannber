@@ -1,10 +1,12 @@
 ﻿import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 export default function HomeScreen() {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
   const [materiais, setMateriais] = useState([]);
+
+  const handleCadastrar = () => {};
 
   return (
     <View style={styles.container}>
@@ -28,6 +30,10 @@ export default function HomeScreen() {
         value={quantidade}
         onChangeText={setQuantidade}
       />
+
+      <TouchableOpacity testID="btn-cadastrar" style={styles.botao} onPress={handleCadastrar}>
+        <Text style={styles.botaoTexto}>Cadastrar Material</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -60,5 +66,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 16,
     backgroundColor: '#fafafa',
+  },
+  botao: {
+    backgroundColor: '#007AFF',
+    padding: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  botaoTexto: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
