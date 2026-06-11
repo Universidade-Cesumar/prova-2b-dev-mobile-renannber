@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import api from '../services/api';
 
@@ -15,6 +15,10 @@ export default function HomeScreen() {
       Alert.alert('Erro', 'Nao foi possivel carregar o estoque.');
     }
   };
+
+  useEffect(() => {
+    buscarMateriais();
+  }, []);
 
   const handleCadastrar = () => {
     if (!nome.trim() || !quantidade.trim()) {
