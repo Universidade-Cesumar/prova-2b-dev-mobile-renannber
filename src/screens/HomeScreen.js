@@ -20,10 +20,19 @@ export default function HomeScreen() {
     buscarMateriais();
   }, []);
 
-  const handleCadastrar = () => {
+  const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
       Alert.alert('Atencao', 'Preencha todos os campos antes de cadastrar.');
       return;
+    }
+
+    try {
+      await api.post('/', {
+        nome: nome.trim(),
+        quantidade: Number(quantidade),
+      });
+    } catch (erro) {
+      Alert.alert('Erro', 'Nao foi possivel cadastrar o material.');
     }
   };
 
