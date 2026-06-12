@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, FlatList } from 'react-native';
 import api from '../services/api';
 
 export default function HomeScreen() {
@@ -27,6 +27,13 @@ export default function HomeScreen() {
     }
   };
 
+  const renderItem = ({ item }) => (
+    <View style={styles.item}>
+      <Text style={styles.itemNome}>{item.nome}</Text>
+      <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Almoxarifado - Enfermagem</Text>
@@ -53,6 +60,17 @@ export default function HomeScreen() {
       <TouchableOpacity testID="btn-cadastrar" style={styles.botao} onPress={handleCadastrar}>
         <Text style={styles.botaoTexto}>Cadastrar Material</Text>
       </TouchableOpacity>
+
+      <Text style={styles.subtitulo}>Estoque Atual</Text>
+      <FlatList
+        testID="lista-materials"
+        data={materiais}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={renderItem}
+        ListEmptyComponent={
+          <Text style={styles.vazio}>Nenhum material cadastrado.</Text>
+        }
+      />
     </View>
   );
 }
@@ -98,4 +116,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  subtitulo: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 12,
+  },
+  item: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    marginBottom: 8,
+  },
+  itemNome: { fontSize: 16, color: '#333' },
+  itemQuantidade: { fontSize: 14, color: '#666' },
+  vazio: { textAlign: 'center', color: '#999', marginTop: 20 },
 });
