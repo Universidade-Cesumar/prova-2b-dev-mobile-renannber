@@ -28,7 +28,7 @@ export default function HomeScreen() {
       const resposta = await api.get('/');
       setMateriais(resposta.data);
     } catch (erro) {
-      Alert.alert('Erro', 'Nao foi possivel carregar o estoque.');
+      Alert.alert('Erro', 'Não foi possível carregar o estoque.');
       console.error('Erro ao buscar materiais:', erro);
     } finally {
       setCarregando(false);
@@ -43,7 +43,7 @@ export default function HomeScreen() {
   /** Valida os campos e cadastra um novo material na MockAPI (POST). */
   const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
-      Alert.alert('Atencao', 'Preencha todos os campos antes de cadastrar.');
+      Alert.alert('Atenção', 'Preencha todos os campos antes de cadastrar.');
       return;
     }
 
@@ -58,7 +58,7 @@ export default function HomeScreen() {
       setQuantidade('');
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'Nao foi possivel cadastrar o material.');
+      Alert.alert('Erro', 'Não foi possível cadastrar o material.');
       console.error('Erro ao cadastrar material:', erro);
     } finally {
       setCarregando(false);
