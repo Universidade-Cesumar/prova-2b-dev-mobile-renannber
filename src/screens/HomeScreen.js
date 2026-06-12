@@ -31,6 +31,10 @@ export default function HomeScreen() {
         nome: nome.trim(),
         quantidade: Number(quantidade),
       });
+
+      setNome('');
+      setQuantidade('');
+      await buscarMateriais();
     } catch (erro) {
       Alert.alert('Erro', 'Nao foi possivel cadastrar o material.');
     }
