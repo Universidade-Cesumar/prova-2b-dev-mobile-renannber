@@ -75,13 +75,11 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Almoxarifado - Enfermagem</Text>
-
       <Text style={styles.label}>Nome do Material:</Text>
       <TextInput
         testID="input-nome"
         style={styles.input}
-        placeholder="Ex: Caneta Azul"
+        placeholder="Ex: Seringa "
         value={nome}
         onChangeText={setNome}
       />
@@ -127,16 +125,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingTop: 50,
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
-    color: '#333',
   },
   label: {
     fontSize: 14,
