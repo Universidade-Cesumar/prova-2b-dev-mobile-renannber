@@ -1,25 +1,46 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert, FlatList } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import api from '../services/api';
 
+/**
+ * Tela principal do almoxarifado.
+ * Gerencia cadastro e listagem de materiais do estoque.
+ */
 export default function HomeScreen() {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
   const [materiais, setMateriais] = useState([]);
+  const [carregando, setCarregando] = useState(false);
 
+  /** Busca todos os materiais cadastrados na MockAPI (GET). */
   const buscarMateriais = async () => {
     try {
+      setCarregando(true);
       const resposta = await api.get('/');
       setMateriais(resposta.data);
     } catch (erro) {
       Alert.alert('Erro', 'Nao foi possivel carregar o estoque.');
+      console.error('Erro ao buscar materiais:', erro);
+    } finally {
+      setCarregando(false);
     }
   };
 
+  /** Carrega o estoque ao abrir o aplicativo. */
   useEffect(() => {
     buscarMateriais();
   }, []);
 
+  /** Valida os campos e cadastra um novo material na MockAPI (POST). */
   const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
       Alert.alert('Atencao', 'Preencha todos os campos antes de cadastrar.');
@@ -27,6 +48,7 @@ export default function HomeScreen() {
     }
 
     try {
+      setCarregando(true);
       await api.post('/', {
         nome: nome.trim(),
         quantidade: Number(quantidade),
@@ -37,9 +59,13 @@ export default function HomeScreen() {
       await buscarMateriais();
     } catch (erro) {
       Alert.alert('Erro', 'Nao foi possivel cadastrar o material.');
+      console.error('Erro ao cadastrar material:', erro);
+    } finally {
+      setCarregando(false);
     }
   };
 
+  /** Renderiza cada item da lista de materiais. */
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <Text style={styles.itemNome}>{item.nome}</Text>
@@ -70,20 +96,30 @@ export default function HomeScreen() {
         onChangeText={setQuantidade}
       />
 
-      <TouchableOpacity testID="btn-cadastrar" style={styles.botao} onPress={handleCadastrar}>
+      <TouchableOpacity
+        testID="btn-cadastrar"
+        style={styles.botao}
+        onPress={handleCadastrar}
+        disabled={carregando}
+      >
         <Text style={styles.botaoTexto}>Cadastrar Material</Text>
       </TouchableOpacity>
 
       <Text style={styles.subtitulo}>Estoque Atual</Text>
-      <FlatList
-        testID="lista-materials"
-        data={materiais}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={renderItem}
-        ListEmptyComponent={
-          <Text style={styles.vazio}>Nenhum material cadastrado.</Text>
-        }
-      />
+
+      {carregando && materiais.length === 0 ? (
+        <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
+      ) : (
+        <FlatList
+          testID="lista-materials"
+          data={materiais}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={renderItem}
+          ListEmptyComponent={
+            <Text style={styles.vazio}>Nenhum material cadastrado.</Text>
+          }
+        />
+      )}
     </View>
   );
 }
@@ -138,12 +174,30 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 14,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
+    backgroundColor: '#f9f9f9',
+    borderRadius: 6,
     marginBottom: 8,
   },
-  itemNome: { fontSize: 16, color: '#333' },
-  itemQuantidade: { fontSize: 14, color: '#666' },
-  vazio: { textAlign: 'center', color: '#999', marginTop: 20 },
+  itemNome: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '500',
+  },
+  itemQuantidade: {
+    fontSize: 14,
+    color: '#666',
+  },
+  vazio: {
+    textAlign: 'center',
+    color: '#999',
+    marginTop: 20,
+    fontSize: 14,
+  },
+  loader: {
+    marginTop: 30,
+  },
 });
