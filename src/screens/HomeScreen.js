@@ -87,6 +87,9 @@ export default function HomeScreen() {
       <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao}>
         <Text style={styles.botaoTexto}>Baixar</Text>
       </TouchableOpacity>
+      <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao}>
+        <Text style={styles.botaoTexto}>Excluir</Text>
+      </TouchableOpacity>
     </View>
   );
 
