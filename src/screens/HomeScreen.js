@@ -84,6 +84,9 @@ export default function HomeScreen() {
         value={retiradas[item.id] || ''}
         onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
       />
+      <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao}>
+        <Text style={styles.botaoTexto}>Baixar</Text>
+      </TouchableOpacity>
     </View>
   );
 
