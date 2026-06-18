@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import api from '../services/api';
+import { validarRetirada } from '../utils/validacoes';
 
 /**
  * Tela principal do almoxarifado.
