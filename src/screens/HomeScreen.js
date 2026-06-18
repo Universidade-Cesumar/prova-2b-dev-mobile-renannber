@@ -76,6 +76,14 @@ export default function HomeScreen() {
     <View style={styles.item}>
       <Text style={styles.itemNome}>{item.nome}</Text>
       <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
+      <TextInput
+        testID="input-retirada"
+        style={styles.inputRetirada}
+        placeholder="Qtd"
+        keyboardType="numeric"
+        value={retiradas[item.id] || ''}
+        onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
+      />
     </View>
   );
 
