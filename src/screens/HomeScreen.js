@@ -20,6 +20,7 @@ export default function HomeScreen() {
   const [quantidade, setQuantidade] = useState('');
   const [materiais, setMateriais] = useState([]);
   const [carregando, setCarregando] = useState(false);
+  const [retiradas, setRetiradas] = useState({});
 
   /** Busca todos os materiais cadastrados na MockAPI (GET). */
   const buscarMateriais = async () => {
