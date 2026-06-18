@@ -67,6 +67,10 @@ export default function HomeScreen() {
     }
   };
 
+  const handleRetiradaChange = (id, valor) => {
+    setRetiradas((prev) => ({ ...prev, [id]: valor }));
+  };
+
   /** Renderiza cada item da lista de materiais. */
   const renderItem = ({ item }) => (
     <View style={styles.item}>
