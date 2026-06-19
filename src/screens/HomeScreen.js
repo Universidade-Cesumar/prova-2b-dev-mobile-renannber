@@ -71,6 +71,14 @@ export default function HomeScreen() {
     setRetiradas((prev) => ({ ...prev, [id]: valor }));
   };
 
+  const handleBaixar = async (item) => {
+    const quantidadeRetirada = Number(retiradas[item.id]);
+    if (!validarRetirada(item.quantidade, quantidadeRetirada)) {
+      Alert.alert('Atencao', 'Retirada invalida. Verifique a quantidade informada.');
+      return;
+    }
+  };
+
   /** Renderiza cada item da lista de materiais. */
   const renderItem = ({ item }) => (
     <View style={styles.item}>
@@ -84,7 +92,7 @@ export default function HomeScreen() {
         value={retiradas[item.id] || ''}
         onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
       />
-      <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao}>
+      <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao} onPress={() => handleBaixar(item)}>
         <Text style={styles.botaoTexto}>Baixar</Text>
       </TouchableOpacity>
       <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao}>
