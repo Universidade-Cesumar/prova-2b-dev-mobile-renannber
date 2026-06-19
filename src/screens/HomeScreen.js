@@ -77,6 +77,18 @@ export default function HomeScreen() {
       Alert.alert('Atencao', 'Retirada invalida. Verifique a quantidade informada.');
       return;
     }
+    try {
+      setCarregando(true);
+      await api.put(`/${item.id}`, {
+        nome: item.nome,
+        quantidade: item.quantidade - quantidadeRetirada,
+      });
+      await buscarMateriais();
+    } catch (erro) {
+      Alert.alert('Erro', 'Nao foi possivel registrar a baixa.');
+    } finally {
+      setCarregando(false);
+    }
   };
 
   /** Renderiza cada item da lista de materiais. */
