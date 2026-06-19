@@ -116,10 +116,10 @@ export default function HomeScreen() {
         value={retiradas[item.id] || ''}
         onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
       />
-      <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao} onPress={() => handleBaixar(item)}>
+      <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao} onPress={() => handleBaixar(item)} disabled={carregando}>
         <Text style={styles.botaoTexto}>Baixar</Text>
       </TouchableOpacity>
-      <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao} onPress={() => handleExcluir(item)}>
+      <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao} onPress={() => handleExcluir(item)} disabled={carregando}>
         <Text style={styles.botaoTexto}>Excluir</Text>
       </TouchableOpacity>
     </View>
