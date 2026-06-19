@@ -91,6 +91,18 @@ export default function HomeScreen() {
     }
   };
 
+  const handleExcluir = async (item) => {
+    try {
+      setCarregando(true);
+      await api.delete(`/${item.id}`);
+      await buscarMateriais();
+    } catch (erro) {
+      Alert.alert('Erro', 'Nao foi possivel excluir o material.');
+    } finally {
+      setCarregando(false);
+    }
+  };
+
   /** Renderiza cada item da lista de materiais. */
   const renderItem = ({ item }) => (
     <View style={styles.item}>
@@ -107,7 +119,7 @@ export default function HomeScreen() {
       <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao} onPress={() => handleBaixar(item)}>
         <Text style={styles.botaoTexto}>Baixar</Text>
       </TouchableOpacity>
-      <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao}>
+      <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao} onPress={() => handleExcluir(item)}>
         <Text style={styles.botaoTexto}>Excluir</Text>
       </TouchableOpacity>
     </View>
