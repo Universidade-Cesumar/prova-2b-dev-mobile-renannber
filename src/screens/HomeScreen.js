@@ -83,6 +83,7 @@ export default function HomeScreen() {
         nome: item.nome,
         quantidade: item.quantidade - quantidadeRetirada,
       });
+      setRetiradas((prev) => ({ ...prev, [item.id]: '' }));
       await buscarMateriais();
     } catch (erro) {
       Alert.alert('Erro', 'Nao foi possivel registrar a baixa.');
