@@ -14,14 +14,14 @@ import { validarRetirada } from '../utils/validacoes';
 
 /**
  * Tela principal do almoxarifado.
- * Gerencia cadastro e listagem de materiais do estoque.
+ * Gerencia cadastro, listagem, baixa e exclusao de materiais do estoque.
  */
 export default function HomeScreen() {
   const [nome, setNome] = useState('');
   const [quantidade, setQuantidade] = useState('');
   const [materiais, setMateriais] = useState([]);
-  const [carregando, setCarregando] = useState(false);
   const [retiradas, setRetiradas] = useState({});
+  const [carregando, setCarregando] = useState(false);
 
   /** Busca todos os materiais cadastrados na MockAPI (GET). */
   const buscarMateriais = async () => {
@@ -67,62 +67,87 @@ export default function HomeScreen() {
     }
   };
 
+  /** Registra a quantidade informada para retirada de um item. */
   const handleRetiradaChange = (id, valor) => {
     setRetiradas((prev) => ({ ...prev, [id]: valor }));
   };
 
+  /** Executa baixa de estoque via PUT apos validar a retirada. */
   const handleBaixar = async (item) => {
     const quantidadeRetirada = Number(retiradas[item.id]);
+
     if (!validarRetirada(item.quantidade, quantidadeRetirada)) {
-      Alert.alert('Atencao', 'Retirada invalida. Verifique a quantidade informada.');
+      Alert.alert('Atenção', 'Retirada inválida. Verifique a quantidade informada.');
       return;
     }
+
     try {
       setCarregando(true);
       await api.put(`/${item.id}`, {
         nome: item.nome,
         quantidade: item.quantidade - quantidadeRetirada,
       });
+
       setRetiradas((prev) => ({ ...prev, [item.id]: '' }));
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'Nao foi possivel registrar a baixa.');
+      Alert.alert('Erro', 'Não foi possível registrar a baixa.');
+      console.error('Erro ao baixar material:', erro);
     } finally {
       setCarregando(false);
     }
   };
 
+  /** Remove um material do estoque via DELETE. */
   const handleExcluir = async (item) => {
     try {
       setCarregando(true);
       await api.delete(`/${item.id}`);
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'Nao foi possivel excluir o material.');
+      Alert.alert('Erro', 'Não foi possível excluir o material.');
+      console.error('Erro ao excluir material:', erro);
     } finally {
       setCarregando(false);
     }
   };
 
-  /** Renderiza cada item da lista de materiais. */
+  /** Renderiza cada item da lista de materiais com controles de baixa e exclusao. */
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text style={styles.itemNome}>{item.nome}</Text>
-      <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
-      <TextInput
-        testID="input-retirada"
-        style={styles.inputRetirada}
-        placeholder="Qtd"
-        keyboardType="numeric"
-        value={retiradas[item.id] || ''}
-        onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
-      />
-      <TouchableOpacity testID="btn-baixar" style={styles.botaoAcao} onPress={() => handleBaixar(item)} disabled={carregando}>
-        <Text style={styles.botaoTexto}>Baixar</Text>
-      </TouchableOpacity>
-      <TouchableOpacity testID="btn-excluir" style={styles.botaoAcao} onPress={() => handleExcluir(item)} disabled={carregando}>
-        <Text style={styles.botaoTexto}>Excluir</Text>
-      </TouchableOpacity>
+      <View style={styles.itemInfo}>
+        <Text style={styles.itemNome}>{item.nome}</Text>
+        <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
+      </View>
+
+      <View style={styles.itemAcoes}>
+        <TextInput
+          testID="input-retirada"
+          style={styles.inputRetirada}
+          placeholder="Qtd"
+          keyboardType="numeric"
+          value={retiradas[item.id] || ''}
+          onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
+        />
+
+        <TouchableOpacity
+          testID="btn-baixar"
+          style={styles.botaoAcao}
+          onPress={() => handleBaixar(item)}
+          disabled={carregando}
+        >
+          <Text style={styles.botaoTexto}>Baixar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          testID="btn-excluir"
+          style={styles.botaoAcao}
+          onPress={() => handleExcluir(item)}
+          disabled={carregando}
+        >
+          <Text style={styles.botaoTexto}>Excluir</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -240,5 +265,29 @@ const styles = StyleSheet.create({
   },
   loader: {
     marginTop: 30,
+  },
+  itemInfo: {
+    flex: 1,
+  },
+  itemAcoes: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputRetirada: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 8,
+    fontSize: 14,
+    width: 50,
+    backgroundColor: '#fafafa',
+    marginRight: 6,
+  },
+  botaoAcao: {
+    backgroundColor: '#007AFF',
+    padding: 8,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginLeft: 4,
   },
 });
