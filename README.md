@@ -1,4 +1,8 @@
-﻿#Sprint 1
+﻿# SysAlmoxarifado
+
+## Sprint 1 — Cadastro e listagem
+
+
 
 Aplicativo mobile de Almoxarifado desenvolvido com React Native e Expo. Permite cadastrar novos materiais e visualizar o estoque em tempo real, integrado à MockAPI.
 
