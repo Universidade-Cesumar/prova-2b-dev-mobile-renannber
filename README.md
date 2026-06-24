@@ -8,6 +8,14 @@ Sistema para controle de insumos médicos do almoxarifado de enfermagem. A Sprin
 Cadastro de novos materiais (nome e quantidade)
 Listagem dinâmica do estoque via FlatList
 Integração REST com MockAPI (GET e POST)
+
+## Sprint 3 — Dashboard e alertas
+
+- Pesquisa em tempo real por nome do material
+- Totalizador de itens visíveis após filtragem
+- Indicador visual de estoque crítico (quantidade menor que 10)
+- Tratamento de erros de conexão de rede com mensagens amigáveis
+
 Tecnologias Utilizadas
 React Native — interface mobile
 Expo (~51) — ambiente de desenvolvimento
