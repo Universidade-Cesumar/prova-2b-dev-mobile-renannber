@@ -24,6 +24,10 @@ export default function HomeScreen() {
   const [carregando, setCarregando] = useState(false);
   const [busca, setBusca] = useState('');
 
+  const materiaisFiltrados = materiais.filter((item) =>
+    item.nome.toLowerCase().includes(busca.toLowerCase().trim())
+  );
+
   /** Busca todos os materiais cadastrados na MockAPI (GET). */
   const buscarMateriais = async () => {
     try {
