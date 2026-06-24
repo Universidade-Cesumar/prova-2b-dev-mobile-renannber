@@ -35,8 +35,8 @@ export default function HomeScreen() {
       const resposta = await api.get('/');
       setMateriais(resposta.data);
     } catch (erro) {
-      Alert.alert('Erro', 'N�o foi poss�vel carregar o estoque.');
-      console.error('Erro ao buscar materiais:', erro);
+      console.error(erro);
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
@@ -50,7 +50,7 @@ export default function HomeScreen() {
   /** Valida os campos e cadastra um novo material na MockAPI (POST). */
   const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
-      Alert.alert('Aten��o', 'Preencha todos os campos antes de cadastrar.');
+      Alert.alert('Atenção', 'Preencha todos os campos antes de cadastrar.');
       return;
     }
 
@@ -82,7 +82,7 @@ export default function HomeScreen() {
     const quantidadeRetirada = Number(retiradas[item.id]);
 
     if (!validarRetirada(item.quantidade, quantidadeRetirada)) {
-      Alert.alert('Aten��o', 'Retirada inv�lida. Verifique a quantidade informada.');
+      Alert.alert('Atenção', 'Retirada inválida. Verifique a quantidade informada.');
       return;
     }
 
