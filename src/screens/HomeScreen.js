@@ -188,6 +188,8 @@ export default function HomeScreen() {
 
       <Text style={styles.subtitulo}>Estoque Atual</Text>
 
+      <Text style={styles.label}>Pesquisar Material:</Text>
+
       {carregando && materiais.length === 0 ? (
         <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
       ) : (
