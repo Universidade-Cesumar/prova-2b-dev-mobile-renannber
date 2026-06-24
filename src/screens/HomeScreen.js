@@ -65,8 +65,8 @@ export default function HomeScreen() {
       setQuantidade('');
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'N�o foi poss�vel cadastrar o material.');
-      console.error('Erro ao cadastrar material:', erro);
+      console.error(erro);
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
