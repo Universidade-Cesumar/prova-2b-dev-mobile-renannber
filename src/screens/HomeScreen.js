@@ -110,8 +110,8 @@ export default function HomeScreen() {
       await api.delete(`/${item.id}`);
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'N�o foi poss�vel excluir o material.');
-      console.error('Erro ao excluir material:', erro);
+      console.error(erro);
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
