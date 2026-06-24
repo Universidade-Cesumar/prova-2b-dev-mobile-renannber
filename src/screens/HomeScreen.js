@@ -96,8 +96,8 @@ export default function HomeScreen() {
       setRetiradas((prev) => ({ ...prev, [item.id]: '' }));
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'N�o foi poss�vel registrar a baixa.');
-      console.error('Erro ao baixar material:', erro);
+      console.error(erro);
+      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
