@@ -35,7 +35,7 @@ export default function HomeScreen() {
       const resposta = await api.get('/');
       setMateriais(resposta.data);
     } catch (erro) {
-      Alert.alert('Erro', 'Não foi possível carregar o estoque.');
+      Alert.alert('Erro', 'Nï¿½o foi possï¿½vel carregar o estoque.');
       console.error('Erro ao buscar materiais:', erro);
     } finally {
       setCarregando(false);
@@ -50,7 +50,7 @@ export default function HomeScreen() {
   /** Valida os campos e cadastra um novo material na MockAPI (POST). */
   const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
-      Alert.alert('Atenção', 'Preencha todos os campos antes de cadastrar.');
+      Alert.alert('Atenï¿½ï¿½o', 'Preencha todos os campos antes de cadastrar.');
       return;
     }
 
@@ -65,7 +65,7 @@ export default function HomeScreen() {
       setQuantidade('');
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'Não foi possível cadastrar o material.');
+      Alert.alert('Erro', 'Nï¿½o foi possï¿½vel cadastrar o material.');
       console.error('Erro ao cadastrar material:', erro);
     } finally {
       setCarregando(false);
@@ -82,7 +82,7 @@ export default function HomeScreen() {
     const quantidadeRetirada = Number(retiradas[item.id]);
 
     if (!validarRetirada(item.quantidade, quantidadeRetirada)) {
-      Alert.alert('Atenção', 'Retirada inválida. Verifique a quantidade informada.');
+      Alert.alert('Atenï¿½ï¿½o', 'Retirada invï¿½lida. Verifique a quantidade informada.');
       return;
     }
 
@@ -96,7 +96,7 @@ export default function HomeScreen() {
       setRetiradas((prev) => ({ ...prev, [item.id]: '' }));
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'Não foi possível registrar a baixa.');
+      Alert.alert('Erro', 'Nï¿½o foi possï¿½vel registrar a baixa.');
       console.error('Erro ao baixar material:', erro);
     } finally {
       setCarregando(false);
@@ -110,7 +110,7 @@ export default function HomeScreen() {
       await api.delete(`/${item.id}`);
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'Não foi possível excluir o material.');
+      Alert.alert('Erro', 'Nï¿½o foi possï¿½vel excluir o material.');
       console.error('Erro ao excluir material:', erro);
     } finally {
       setCarregando(false);
