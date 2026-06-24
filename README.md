@@ -22,6 +22,14 @@ Expo (~51) — ambiente de desenvolvimento
 Axios — requisições HTTP
 React Hooks — useState, useEffect
 Jest + Testing Library — testes automatizados
+## testIDs
+
+**Sprint 1:** `input-nome`, `input-quantidade`, `btn-cadastrar`, `lista-materials`
+
+**Sprint 2:** `input-retirada`, `btn-baixar`, `btn-excluir`
+
+**Sprint 3:** `input-busca`, `total-itens`, `estoque-critico` (accessibilityLabel)
+
 URL configurada neste projeto:
 
 https://6a2b3f4eb687a7d5cbc50350.mockapi.io/materiais
