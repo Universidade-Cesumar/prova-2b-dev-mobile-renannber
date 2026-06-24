@@ -122,7 +122,9 @@ export default function HomeScreen() {
     const estoqueCritico = item.quantidade < 10;
 
     return (
-      <View style={styles.item}>
+      <View
+        style={[styles.item, estoqueCritico && styles.itemCritico]}
+      >
       <View style={styles.itemInfo}>
         <Text style={styles.itemNome}>{item.nome}</Text>
         <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
