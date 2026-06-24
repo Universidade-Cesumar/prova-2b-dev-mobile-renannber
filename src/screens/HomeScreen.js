@@ -202,7 +202,7 @@ export default function HomeScreen() {
       ) : (
         <FlatList
           testID="lista-materials"
-          data={materiais}
+          data={materiaisFiltrados}
           keyExtractor={(item) => String(item.id)}
           renderItem={renderItem}
           ListEmptyComponent={
