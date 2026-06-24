@@ -278,6 +278,11 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
   },
+  itemCritico: {
+    backgroundColor: '#ffe5e5',
+    borderWidth: 1,
+    borderColor: '#ff6b6b',
+  },
   itemNome: {
     fontSize: 16,
     color: '#333',
