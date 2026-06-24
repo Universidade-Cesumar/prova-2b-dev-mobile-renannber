@@ -255,6 +255,12 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 12,
   },
+  totalItens: {
+    fontSize: 14,
+    color: '#555',
+    marginBottom: 12,
+    fontWeight: '500',
+  },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
