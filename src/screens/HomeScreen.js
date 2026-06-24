@@ -197,7 +197,7 @@ export default function HomeScreen() {
         onChangeText={setBusca}
       />
 
-      <Text style={styles.totalItens}>
+      <Text testID="total-itens" style={styles.totalItens}>
         Total de itens: {materiaisFiltrados.length}
       </Text>
 
