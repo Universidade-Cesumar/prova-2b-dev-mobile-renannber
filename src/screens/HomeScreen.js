@@ -197,6 +197,10 @@ export default function HomeScreen() {
         onChangeText={setBusca}
       />
 
+      <Text style={styles.totalItens}>
+        Total de itens: {materiaisFiltrados.length}
+      </Text>
+
       {carregando && materiais.length === 0 ? (
         <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
       ) : (
