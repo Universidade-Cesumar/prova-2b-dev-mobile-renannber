@@ -124,6 +124,7 @@ export default function HomeScreen() {
     return (
       <View
         style={[styles.item, estoqueCritico && styles.itemCritico]}
+        accessibilityLabel={estoqueCritico ? 'estoque-critico' : undefined}
       >
       <View style={styles.itemInfo}>
         <Text style={styles.itemNome}>{item.nome}</Text>
