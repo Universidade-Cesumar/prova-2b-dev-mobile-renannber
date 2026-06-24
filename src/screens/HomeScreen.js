@@ -189,6 +189,13 @@ export default function HomeScreen() {
       <Text style={styles.subtitulo}>Estoque Atual</Text>
 
       <Text style={styles.label}>Pesquisar Material:</Text>
+      <TextInput
+        testID="input-busca"
+        style={styles.input}
+        placeholder="Buscar por nome..."
+        value={busca}
+        onChangeText={setBusca}
+      />
 
       {carregando && materiais.length === 0 ? (
         <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />
