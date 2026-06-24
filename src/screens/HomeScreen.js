@@ -1,4 +1,4 @@
-ï»¿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -22,6 +22,7 @@ export default function HomeScreen() {
   const [materiais, setMateriais] = useState([]);
   const [retiradas, setRetiradas] = useState({});
   const [carregando, setCarregando] = useState(false);
+  const [busca, setBusca] = useState('');
 
   /** Busca todos os materiais cadastrados na MockAPI (GET). */
   const buscarMateriais = async () => {
@@ -30,7 +31,7 @@ export default function HomeScreen() {
       const resposta = await api.get('/');
       setMateriais(resposta.data);
     } catch (erro) {
-      Alert.alert('Erro', 'NÃ£o foi possÃ­vel carregar o estoque.');
+      Alert.alert('Erro', 'Não foi possível carregar o estoque.');
       console.error('Erro ao buscar materiais:', erro);
     } finally {
       setCarregando(false);
@@ -45,7 +46,7 @@ export default function HomeScreen() {
   /** Valida os campos e cadastra um novo material na MockAPI (POST). */
   const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
-      Alert.alert('AtenÃ§Ã£o', 'Preencha todos os campos antes de cadastrar.');
+      Alert.alert('Atenção', 'Preencha todos os campos antes de cadastrar.');
       return;
     }
 
@@ -60,7 +61,7 @@ export default function HomeScreen() {
       setQuantidade('');
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'NÃ£o foi possÃ­vel cadastrar o material.');
+      Alert.alert('Erro', 'Não foi possível cadastrar o material.');
       console.error('Erro ao cadastrar material:', erro);
     } finally {
       setCarregando(false);
@@ -77,7 +78,7 @@ export default function HomeScreen() {
     const quantidadeRetirada = Number(retiradas[item.id]);
 
     if (!validarRetirada(item.quantidade, quantidadeRetirada)) {
-      Alert.alert('AtenÃ§Ã£o', 'Retirada invÃ¡lida. Verifique a quantidade informada.');
+      Alert.alert('Atenção', 'Retirada inválida. Verifique a quantidade informada.');
       return;
     }
 
@@ -91,7 +92,7 @@ export default function HomeScreen() {
       setRetiradas((prev) => ({ ...prev, [item.id]: '' }));
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'NÃ£o foi possÃ­vel registrar a baixa.');
+      Alert.alert('Erro', 'Não foi possível registrar a baixa.');
       console.error('Erro ao baixar material:', erro);
     } finally {
       setCarregando(false);
@@ -105,7 +106,7 @@ export default function HomeScreen() {
       await api.delete(`/${item.id}`);
       await buscarMateriais();
     } catch (erro) {
-      Alert.alert('Erro', 'NÃ£o foi possÃ­vel excluir o material.');
+      Alert.alert('Erro', 'Não foi possível excluir o material.');
       console.error('Erro ao excluir material:', erro);
     } finally {
       setCarregando(false);
