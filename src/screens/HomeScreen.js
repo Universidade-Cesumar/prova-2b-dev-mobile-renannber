@@ -118,8 +118,11 @@ export default function HomeScreen() {
   };
 
   /** Renderiza cada item da lista de materiais com controles de baixa e exclusao. */
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
+  const renderItem = ({ item }) => {
+    const estoqueCritico = item.quantidade < 10;
+
+    return (
+      <View style={styles.item}>
       <View style={styles.itemInfo}>
         <Text style={styles.itemNome}>{item.nome}</Text>
         <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
@@ -154,7 +157,8 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
     </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>
