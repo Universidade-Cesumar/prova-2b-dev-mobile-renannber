@@ -117,7 +117,7 @@ export default function HomeScreen() {
     }
   };
 
-  /** Renderiza cada item da lista de materiais com controles de baixa e exclusao. */
+  /** Renderiza item com destaque visual quando estoque critico (qtd menor que 10). */
   const renderItem = ({ item }) => {
     const estoqueCritico = item.quantidade < 10;
 
