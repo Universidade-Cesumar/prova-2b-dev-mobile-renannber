@@ -20,7 +20,15 @@ Integração REST com MockAPI (GET e POST)
 - Indicador visual de estoque crítico (quantidade menor que 10)
 - Tratamento de erros de conexão de rede com mensagens amigáveis
 
-Tecnologias Utilizadas
+## Instalação e execução
+
+```bash
+npm install --legacy-peer-deps
+npm start
+npm test
+```
+
+## Tecnologias Utilizadas
 React Native — interface mobile
 Expo (~51) — ambiente de desenvolvimento
 Axios — requisições HTTP
