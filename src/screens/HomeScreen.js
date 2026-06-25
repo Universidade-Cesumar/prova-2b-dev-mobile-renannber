@@ -14,7 +14,7 @@ import { validarRetirada } from '../utils/validacoes';
 
 /**
  * Tela principal do almoxarifado.
- * Gerencia cadastro, listagem, baixa e exclusao de materiais do estoque.
+ * Gerencia cadastro, listagem, baixa, exclusao, pesquisa e alertas de estoque.
  */
 export default function HomeScreen() {
   const [nome, setNome] = useState('');
