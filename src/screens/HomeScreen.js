@@ -28,7 +28,7 @@ export default function HomeScreen() {
     item.nome.toLowerCase().includes(busca.toLowerCase().trim())
   );
 
-  /** Busca todos os materiais cadastrados na MockAPI (GET). */
+  /** Busca todos os materiais cadastrados na MockAPI com tratamento de erro (GET). */
   const buscarMateriais = async () => {
     try {
       setCarregando(true);
@@ -36,7 +36,7 @@ export default function HomeScreen() {
       setMateriais(resposta.data);
     } catch (erro) {
       console.error(erro);
-      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+      Alert.alert('Erro', 'N?o foi poss?vel conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
@@ -50,7 +50,7 @@ export default function HomeScreen() {
   /** Valida os campos e cadastra um novo material na MockAPI (POST). */
   const handleCadastrar = async () => {
     if (!nome.trim() || !quantidade.trim()) {
-      Alert.alert('Atenção', 'Preencha todos os campos antes de cadastrar.');
+      Alert.alert('Aten??o', 'Preencha todos os campos antes de cadastrar.');
       return;
     }
 
@@ -66,7 +66,7 @@ export default function HomeScreen() {
       await buscarMateriais();
     } catch (erro) {
       console.error(erro);
-      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+      Alert.alert('Erro', 'N?o foi poss?vel conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
@@ -82,7 +82,7 @@ export default function HomeScreen() {
     const quantidadeRetirada = Number(retiradas[item.id]);
 
     if (!validarRetirada(item.quantidade, quantidadeRetirada)) {
-      Alert.alert('Atenção', 'Retirada inválida. Verifique a quantidade informada.');
+      Alert.alert('Aten??o', 'Retirada inv?lida. Verifique a quantidade informada.');
       return;
     }
 
@@ -97,7 +97,7 @@ export default function HomeScreen() {
       await buscarMateriais();
     } catch (erro) {
       console.error(erro);
-      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+      Alert.alert('Erro', 'N?o foi poss?vel conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
@@ -111,7 +111,7 @@ export default function HomeScreen() {
       await buscarMateriais();
     } catch (erro) {
       console.error(erro);
-      Alert.alert('Erro', 'Não foi possível conectar ao servidor.');
+      Alert.alert('Erro', 'N?o foi poss?vel conectar ao servidor.');
     } finally {
       setCarregando(false);
     }
@@ -126,40 +126,40 @@ export default function HomeScreen() {
         style={[styles.item, estoqueCritico && styles.itemCritico]}
         accessibilityLabel={estoqueCritico ? 'estoque-critico' : undefined}
       >
-      <View style={styles.itemInfo}>
-        <Text style={styles.itemNome}>{item.nome}</Text>
-        <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
+        <View style={styles.itemInfo}>
+          <Text style={styles.itemNome}>{item.nome}</Text>
+          <Text style={styles.itemQuantidade}>Qtd: {item.quantidade}</Text>
+        </View>
+
+        <View style={styles.itemAcoes}>
+          <TextInput
+            testID="input-retirada"
+            style={styles.inputRetirada}
+            placeholder="Qtd"
+            keyboardType="numeric"
+            value={retiradas[item.id] || ''}
+            onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
+          />
+
+          <TouchableOpacity
+            testID="btn-baixar"
+            style={styles.botaoAcao}
+            onPress={() => handleBaixar(item)}
+            disabled={carregando}
+          >
+            <Text style={styles.botaoTexto}>Baixar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            testID="btn-excluir"
+            style={styles.botaoAcao}
+            onPress={() => handleExcluir(item)}
+            disabled={carregando}
+          >
+            <Text style={styles.botaoTexto}>Excluir</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-
-      <View style={styles.itemAcoes}>
-        <TextInput
-          testID="input-retirada"
-          style={styles.inputRetirada}
-          placeholder="Qtd"
-          keyboardType="numeric"
-          value={retiradas[item.id] || ''}
-          onChangeText={(valor) => handleRetiradaChange(item.id, valor)}
-        />
-
-        <TouchableOpacity
-          testID="btn-baixar"
-          style={styles.botaoAcao}
-          onPress={() => handleBaixar(item)}
-          disabled={carregando}
-        >
-          <Text style={styles.botaoTexto}>Baixar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          testID="btn-excluir"
-          style={styles.botaoAcao}
-          onPress={() => handleExcluir(item)}
-          disabled={carregando}
-        >
-          <Text style={styles.botaoTexto}>Excluir</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
     );
   };
 
@@ -226,104 +226,21 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#444',
-    marginBottom: 6,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    marginBottom: 16,
-    backgroundColor: '#fafafa',
-  },
-  botao: {
-    backgroundColor: '#007AFF',
-    padding: 14,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  botaoTexto: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  subtitulo: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 12,
-  },
-  totalItens: {
-    fontSize: 14,
-    color: '#555',
-    marginBottom: 12,
-    fontWeight: '600',
-  },
-  item: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    backgroundColor: '#f9f9f9',
-    borderRadius: 6,
-    marginBottom: 8,
-  },
-  itemCritico: {
-    backgroundColor: '#ffe5e5',
-    borderWidth: 1,
-    borderColor: '#ff6b6b',
-  },
-  itemNome: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
-  },
-  itemQuantidade: {
-    fontSize: 14,
-    color: '#666',
-  },
-  vazio: {
-    textAlign: 'center',
-    color: '#999',
-    marginTop: 20,
-    fontSize: 14,
-  },
-  loader: {
-    marginTop: 30,
-  },
-  itemInfo: {
-    flex: 1,
-  },
-  itemAcoes: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  inputRetirada: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    padding: 8,
-    fontSize: 14,
-    width: 50,
-    backgroundColor: '#fafafa',
-    marginRight: 6,
-  },
-  botaoAcao: {
-    backgroundColor: '#007AFF',
-    padding: 8,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginLeft: 4,
-  },
+  container: { flex: 1 },
+  label: { fontSize: 14, fontWeight: '600', color: '#444', marginBottom: 6 },
+  input: { borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 12, fontSize: 16, marginBottom: 16, backgroundColor: '#fafafa' },
+  botao: { backgroundColor: '#007AFF', padding: 14, borderRadius: 8, alignItems: 'center', marginBottom: 24 },
+  botaoTexto: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  subtitulo: { fontSize: 18, fontWeight: 'bold', color: '#333', marginBottom: 12 },
+  totalItens: { fontSize: 14, color: '#555', marginBottom: 12, fontWeight: '500' },
+  item: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 14, borderBottomWidth: 1, borderBottomColor: '#eee', backgroundColor: '#f9f9f9', borderRadius: 6, marginBottom: 8 },
+  itemCritico: { backgroundColor: '#ffe5e5', borderWidth: 1, borderColor: '#ff6b6b' },
+  itemNome: { fontSize: 16, color: '#333', fontWeight: '500' },
+  itemQuantidade: { fontSize: 14, color: '#666' },
+  vazio: { textAlign: 'center', color: '#999', marginTop: 20, fontSize: 14 },
+  loader: { marginTop: 30 },
+  itemInfo: { flex: 1 },
+  itemAcoes: { flexDirection: 'row', alignItems: 'center' },
+  inputRetirada: { borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 8, fontSize: 14, width: 50, backgroundColor: '#fafafa', marginRight: 6 },
+  botaoAcao: { backgroundColor: '#007AFF', padding: 8, borderRadius: 8, alignItems: 'center', marginLeft: 4 },
 });
