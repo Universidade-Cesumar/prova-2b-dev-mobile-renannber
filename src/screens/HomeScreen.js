@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#555',
     marginBottom: 12,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   item: {
     flexDirection: 'row',
