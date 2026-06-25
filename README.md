@@ -37,3 +37,10 @@ Jest + Testing Library — testes automatizados
 URL configurada neste projeto:
 
 https://6a2b3f4eb687a7d5cbc50350.mockapi.io/materiais
+
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/` | Lista materiais |
+| POST | `/` | Cadastra material |
+| PUT | `/:id` | Atualiza quantidade (baixa) |
+| DELETE | `/:id` | Exclui material |
